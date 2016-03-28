@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Learning D3</title>
+    <link rel="stylesheet" href="main.css">
+    <script type="text/javascript" src="../js/d3.min.js"></script>
+  </head>
+  <body>
+    <script>
+      var dataset = [];
+      for( var i = 0; i < 5; i++ ) {
+        var newVal = Math.random() * 30;
+        dataset.push(newVal);
+      }
+
+      var w = 500;
+      var h = 50;
+
+
+      var svg = d3.select('body').append('svg');
+
+      svg.attr('width', w)
+         .attr('height', h);
+
+      var circle  = svg.selectAll('circle')
+         .data(dataset)
+         .enter()
+         .append('circle');
+
+      circle.attr('cx', function(d, i) {
+        return (i * 50) + 25;
+      })
+      .attr('cy', h/2)
+      .attr('r', function(d) {
+        return d;
+      })
+      .attr('fill', 'yellow')
+      .attr('stroke', 'orange')
+      .attr('stroke-width', function(d) {
+        return d/2;
+      });
+
+
+      /*d3.select('body')
+        .selectAll('div')
+        .data(dataset)
+        .enter()
+        .append('div')
+        .attr('class', 'bar')
+        .style('height', function(d) {
+          var barHeight = d * 5;
+          return barHeight + 'px';
+        });*/
+    </script>
+  </body>
+</html>
