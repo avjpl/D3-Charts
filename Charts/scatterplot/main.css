@@ -1,6 +1,17 @@
 body,html{
 	margin: 0;
-	padding: 0;
+	padding: 10px;
 	font-family: "Arial", sans-serif;
 	font-size: 0.95em;
+}
+
+.axis path,
+.axis line {
+	fill: none;
+  stroke: black;
+  shape-rendering: crispEdges;
+}
+
+.axis text {
+	font-size: 11px;
 }

@@ -1,23 +1,27 @@
-var dataset = [
-      [5, 20], [480, 90], [250, 50], [100, 33], [330, 95],
-      [410, 12], [475, 44], [25, 67], [85, 21], [220, 88],
-      [600, 150]
-    ];
+var dataset = [];
+var numDataPoints = 30;
+var xRange = Math.random() * 1000;
+var yRange = Math.random() * 1000;
+for (var i = 0; i < numDataPoints; i++) {
+    var newNumber1 = Math.round(Math.random() * xRange);
+    var newNumber2 = Math.round(Math.random() * yRange);
+    dataset.push([newNumber1, newNumber2]);
+}
 
 var w = 500;
 var h = 300;
-var padding = 20;
+var padding = 30;
 
 var xScale = d3.scale.linear()
                      .domain([
-                       d3.min(dataset, function(d) { return d[0]; }),
+                       0,
                        d3.max(dataset, function(d) { return d[0]; })
                      ])
                      .range([padding, w - padding * 2]);
 
  var yScale = d3.scale.linear()
                       .domain([
-                        d3.min(dataset, function(d) { return d[1]; }),
+                        0,
                         d3.max(dataset, function(d) { return d[1]; })
                       ])
                       .range([h - padding, padding]);
@@ -28,6 +32,16 @@ var rScale = d3.scale.linear()
                        d3.max(dataset, function(d) { return d[1]; })
                      ])
                      .range([2, 5]);
+
+var xAxis = d3.svg.axis()
+                 .scale(xScale)
+                 .orient("bottom")
+                 .ticks(5);
+
+var yAxis = d3.svg.axis()
+                .scale(yScale)
+                .orient("left")
+                .ticks(5);
 
 var svg = d3.select("body")
             .append("svg")
@@ -48,7 +62,7 @@ svg.selectAll("circle")
      return rScale(d[1]);
    });
 
-   svg.selectAll("text")
+   /*svg.selectAll("text")
       .data(dataset)
       .enter()
       .append("text")
@@ -63,4 +77,14 @@ svg.selectAll("circle")
       })
       .attr("font-family", "sans-serif")
       .attr("font-size", "11px")
-      .attr("fill", "teal");
+      .attr("fill", "teal");*/
+
+svg.append('g')
+   .attr('class', 'axis')
+   .attr('transform', 'translate(0,' + (h - padding) + ')')
+   .call(xAxis);
+
+svg.append('g')
+  .attr('class', 'axis')
+  .attr('transform', 'translate(' + padding + ', 0)')
+  .call(yAxis);
